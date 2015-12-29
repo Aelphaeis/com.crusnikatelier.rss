@@ -1,5 +1,6 @@
 package com.crusnikatelier.rss.pojos;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -248,12 +249,8 @@ public class Channel extends RSSElement {
 		this.link = link;
 	}
 	
-	public void setLink(String link){
-		try{
-			this.link = new URL(link);
-		}
-		catch(Exception e){
-			throw new RuntimeException(e);
-		}
+	public void setLink(String link) throws MalformedURLException{
+		//Exception throws because error is recoverable
+		this.link = new URL(link);
 	}
 }

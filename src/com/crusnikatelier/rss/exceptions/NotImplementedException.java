@@ -1,7 +1,7 @@
 package com.crusnikatelier.rss.exceptions;
 
 /**
- * This class is used to detonate that a piece of functionality has
+ * This class is used to denote that a piece of functionality has
  * not yet been completed.
  * @author Aelphaeis
  *

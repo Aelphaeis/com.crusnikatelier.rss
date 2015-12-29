@@ -13,4 +13,5 @@ public abstract class Image {
 	private int height;
 	private int width;
 	private String description;
+	
 }

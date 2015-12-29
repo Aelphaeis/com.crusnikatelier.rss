@@ -37,6 +37,9 @@ public class Channel extends RSSElement {
 	private Integer skipHours;
 	private Integer skipDays;
 	
+	public Channel() {
+		items = new ArrayList<Item>();
+	}
 
 	@Override
 	protected void Validate() {

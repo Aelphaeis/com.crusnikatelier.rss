@@ -25,5 +25,4 @@ public class SyndicationSyntaxException extends RuntimeException {
 	public SyndicationSyntaxException(Throwable cause) {
 		super(cause);
 	}
-
 }

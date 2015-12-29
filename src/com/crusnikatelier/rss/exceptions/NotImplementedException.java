@@ -23,6 +23,4 @@ public class NotImplementedException extends RuntimeException {
 	public NotImplementedException(Throwable cause) {
 		super(cause);
 	}
-
-
 }

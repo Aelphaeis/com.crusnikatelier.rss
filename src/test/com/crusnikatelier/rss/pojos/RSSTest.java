@@ -19,9 +19,25 @@ public class RSSTest {
 	}
 	
 	@Test(expected=SyndicationSyntaxException.class)
-	public void ToDocumentExceptionTest(){
+	public void ToDocumentNoChannelFailureTest(){
 		RSS rss = new RSS();
 		rss.toDocument();
+	}
+	
+	@Test(expected=SyndicationSyntaxException.class)
+	public void toDocumentInvalidChannelFailureTest(){
+		RSS rss= new RSS();
+		//Channels  must have a title, description and link to be convertable to documents
+		rss.setChannel(new Channel());
+		rss.toDocument();
+	}
+	
+	@Test
+	public void isValidTest(){
+		RSS rss= new RSS();
+		//Channels  must have a title, description and link to be convertable to documents
+		rss.setChannel(new Channel());
+		assertFalse(rss.isValid());
 	}
 	
 	@Test

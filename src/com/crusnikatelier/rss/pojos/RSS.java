@@ -4,6 +4,7 @@ import java.io.StringWriter;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -50,15 +51,20 @@ public class RSS extends RSSElement {
 		return element;
 	}
 	
-	public Document toDocument(){
+	/**
+	 * Used to convert this object into an RSS feed document
+	 * @return Representation of this object in XML 
+	 * @throws SyndicationSyntaxException If no channel is specified
+	 */
+	public Document toDocument() throws SyndicationSyntaxException {
 		try{
+			Validate();
+			
 			DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
 			Document doc = docBuilder.newDocument();
 			
 			Element element = doc.createElement("rss");
-			
-			Validate();
 			
 			element.setAttribute("version", getVersion());
 			AugmentElement(element, "channel", getChannel());
@@ -67,8 +73,9 @@ public class RSS extends RSSElement {
 			
 			return doc;
 		}
-		catch(Exception e){
-			throw new RuntimeException(e);
+		catch(ParserConfigurationException pce){
+			//If this occurs this is is a non recoverable error
+			throw new RuntimeException(pce);
 		}
 	}
 	
@@ -106,6 +113,4 @@ public class RSS extends RSSElement {
 	public void setChannel(Channel channel) {
 		this.channel = channel;
 	}
-
-	
 }

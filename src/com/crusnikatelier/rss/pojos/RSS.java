@@ -94,7 +94,9 @@ public class RSS extends RSSElement {
 			return buffer.toString();
 		}
 		catch(Throwable t){
-			throw new RuntimeException(t);
+			//We want to stop all exceptions
+			//throw new RuntimeException(t);
+			return super.toString();
 		}
 	}
 

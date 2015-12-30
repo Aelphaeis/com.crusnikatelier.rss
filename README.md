@@ -1,2 +1,2 @@
 # com.crusnikatelier.rss
-A Simple RSS
+A Simple RSS lib

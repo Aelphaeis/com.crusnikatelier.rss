@@ -27,25 +27,31 @@ public class Image extends RSSElement {
 	
 	@Override
 	public void Validate(){
+		
 		if(getTitle() == null){
 			String errMsg = "Title must have a value";
 			throw new SyndicationSyntaxException(errMsg);
 		}
+		
 		if(getUrl() == null){
 			String errMsg ="url must have a value"; 
 			throw new SyndicationSyntaxException(errMsg);
 		}
+		
 		if(getLink() == null){
 			String errMsg = "link must have a value";
 			throw new SyndicationSyntaxException(errMsg);
 		}
 		
+		
 		if(getHeight() > MAX_HEIGHT){
+			//This should never happen because setters should stop this
 			String errMsg = "Height cannot exceed " + MAX_HEIGHT;
 			throw new SyndicationSyntaxException(errMsg);
 		}
 		
 		if(getWidth() > MAX_WIDTH){
+			//This should never happens because setters should stop this
 			String errMsg = "Width cannot exceed " + MAX_WIDTH;
 			throw new SyndicationSyntaxException(errMsg);
 		}
@@ -136,7 +142,4 @@ public class Image extends RSSElement {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-
-
 }

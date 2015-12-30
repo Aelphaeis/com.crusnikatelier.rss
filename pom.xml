@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.crusnikatelier.rss</groupId>
 	<artifactId>com.crusnikatelier.rss</artifactId>
-	<version>1</version>
+	<version>1.0.1</version>
 	<description>Rich Site Summary API</description>
 	<dependencies>
 		<dependency>

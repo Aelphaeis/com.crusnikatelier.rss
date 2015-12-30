@@ -13,10 +13,23 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	
+		
 	 <properties>
     	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+	
+	<distributionManagement>
+		<repository>
+			<id>s3-maven-release-repo</id>
+			<name>aws release repository</name>
+			<url>s3://repo.maven/release</url>
+		</repository>
+		<snapshotRepository>
+			<id>s3-maven-snapshot-repo</id>
+			<name>aws snapshot repository</name>
+			<url>s3://repo.maven/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
   
 	<build>
 		<sourceDirectory>src</sourceDirectory>

@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import com.crusnikatelier.rss.exceptions.SyndicationSyntaxException;
 import com.crusnikatelier.rss.pojos.Channel;
+import com.crusnikatelier.rss.pojos.Image;
 import com.crusnikatelier.rss.pojos.Item;
 
 public class ChannelTest {
@@ -52,6 +53,21 @@ public class ChannelTest {
 		chan.setLink("http://www.google.com");
 		chan.setDescription("My Description");
 		chan.getItems().add(i);
+		
+		chan.toElement();
+	}
+	
+	@Test(expected=SyndicationSyntaxException.class)
+	public void toElementInvalidImageFailure() throws MalformedURLException{
+		Channel chan = new Channel();
+		chan.setTitle("My Title");
+		chan.setLink("http://www.google.com");
+		chan.toElement();
+		
+		chan.setImage(new Image());
+		//The title is missing
+		chan.getImage().setUrl("http://www.google.com");
+		chan.getImage().setLink("http://www.google.com");
 		
 		chan.toElement();
 	}

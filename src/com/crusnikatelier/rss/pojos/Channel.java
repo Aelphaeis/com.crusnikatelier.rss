@@ -44,9 +44,6 @@ public class Channel extends RSSElement {
 
 	@Override
 	protected void Validate() {
-		for(Item item : getItems() == null? new ArrayList<Item>() : getItems() )
-			item.Validate();
-		
 		if(getTitle() == null){
 			String errMsg = "Title must have a value";
 			throw new SyndicationSyntaxException(errMsg);
@@ -60,6 +57,13 @@ public class Channel extends RSSElement {
 		if(getDescription() == null){
 			String errMsg = "Description must have a value";
 			throw new SyndicationSyntaxException(errMsg);
+		}
+		
+		for(Item item : getItems() == null? new ArrayList<Item>() : getItems() )
+			item.Validate();
+
+		if(getImage() != null){
+			getImage().Validate();
 		}
 	}
 	

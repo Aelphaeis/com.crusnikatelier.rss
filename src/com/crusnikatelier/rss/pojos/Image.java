@@ -3,9 +3,12 @@ package com.crusnikatelier.rss.pojos;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.crusnikatelier.rss.exceptions.SyndicationSyntaxException;
 
-public abstract class Image extends RSSElement {
+public class Image extends RSSElement {
 	
 	public static final int MAX_WIDTH = 144;
 	public static final int MAX_HEIGHT = 400;
@@ -46,6 +49,25 @@ public abstract class Image extends RSSElement {
 			String errMsg = "Width cannot exceed " + MAX_WIDTH;
 			throw new SyndicationSyntaxException(errMsg);
 		}
+	}
+	
+	@Override
+	public Element toElement() {
+		Document doc = createEmptyDocument();
+		Element element = doc.createElement("image");
+		
+		Validate();
+		
+		AugmentElement(element, "url", getUrl());
+		AugmentElement(element, "title", getTitle());
+		AugmentElement(element, "link", getLink());
+		
+		
+		AugmentElement(element, "height", getHeight());
+		AugmentElement(element, "width", getWidth());
+		AugmentElement(element, "description", getDescription());
+		
+		return element;
 	}
 	
 
@@ -114,4 +136,7 @@ public abstract class Image extends RSSElement {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+
+
 }

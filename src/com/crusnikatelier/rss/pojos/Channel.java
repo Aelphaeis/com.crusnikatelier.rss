@@ -30,12 +30,38 @@ public class Channel extends RSSElement {
 	private String category;
 	private String docs;
 	
+	/**
+	 * A string indicating the program used to generate the channel.
+	 */
 	private String generator;
+	/**
+	 * Allows processes to register with a cloud to be notified of updates to 
+	 * the channel, implementing a lightweight publish-subscribe protocol for 
+	 * RSS feeds.
+	 */
 	private Cloud cloud;
+	/**
+	 * ttl stands for time to live. It's a number of minutes that indicates how 
+	 * long a channel can be cached before refreshing from the source. This makes 
+	 * it possible for RSS sources to be managed by a file-sharing network such 
+	 * as Gnutella. 
+	 */
 	private Integer ttl;
+	/**
+	 * 	Specifies a GIF, JPEG or PNG image that can be displayed with the channel
+	 */
 	private Image image;
+	/**
+	 * Specifies a text input box that can be displayed with the channel. 
+	 */
 	private TextInput textInput;
+	/**
+	 * A hint for aggregators telling them which hours they can skip
+	 */
 	private Integer skipHours;
+	/**
+	 * 	A hint for aggregators telling them which days they can skip
+	 */
 	private Integer skipDays;
 	
 	public Channel() {

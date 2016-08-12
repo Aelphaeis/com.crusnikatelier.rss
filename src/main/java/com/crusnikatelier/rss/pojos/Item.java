@@ -2,12 +2,12 @@ package com.crusnikatelier.rss.pojos;
 
 import java.util.Date;
 
-import org.w3c.dom.Element;
-import org.w3c.dom.Document;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
-import com.crusnikatelier.rss.exceptions.SyndicationSyntaxException;
 
-public class Item extends RSSElement {
+@XmlRootElement
+public class Item {
 	
 	//SemiMandatory
 	private String title;
@@ -23,35 +23,7 @@ public class Item extends RSSElement {
 	private Date pubDate;
 	private Source source;
 	
-	@Override
-	protected void Validate(){
-		if(getTitle() == null && getDescription() == null){
-			String err = "Title and Description cannot both be null";
-			throw new SyndicationSyntaxException(err);
-		}
-	}
-	
-	public Element toElement(){
-		Document doc = createEmptyDocument();
-		Element element = doc.createElement("item");	
-		
-		Validate();
-
-		AugmentElement(element, "title", getTitle());
-		AugmentElement(element, "description", getDescription());
-		
-		AugmentElement(element, "link", getLink());
-		AugmentElement(element, "author", getAuthor());
-		AugmentElement(element, "category", getCategory());
-		AugmentElement(element, "comments", getComments());
-		AugmentElement(element, "enclosure",getEnclosure());
-		AugmentElement(element, "guid", getGuid());
-		AugmentElement(element, "pubDate", getPubDate());
-		AugmentElement(element, "source", getSource());
-		
-		return element;
-	}
-	
+	@XmlElement(name="title")
 	public String getTitle() {
 		return title;
 	}
@@ -60,6 +32,7 @@ public class Item extends RSSElement {
 		this.title = title;
 	}
 
+	@XmlElement(name="link")
 	public String getLink() {
 		return link;
 	}
@@ -68,6 +41,7 @@ public class Item extends RSSElement {
 		this.link = link;
 	}
 
+	@XmlElement(name="description")
 	public String getDescription() {
 		return description;
 	}

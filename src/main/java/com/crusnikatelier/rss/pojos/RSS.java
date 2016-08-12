@@ -1,5 +1,7 @@
 package com.crusnikatelier.rss.pojos;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.StringWriter;
 
 import javax.xml.bind.JAXBContext;
@@ -16,46 +18,32 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
 
 import com.crusnikatelier.rss.exceptions.SyndicationSyntaxException;
 
 @XmlRootElement(name="rss")
-public class RSS extends RSSElement {
+public class RSS  {
 	public static final String DEFAULT_VERSION = "2.0";
 	public static final String ATOM_NAMESPACE = "http://www.w3.org/2005/Atom";
 	public static final String ATOM_PREFIX = "atom";
+	
+	private static final String RSS_2_0_SCHEMA_XSD_FILE = "src/main/resources/Rss2-0.xsd";
+	private static final String W3C_XML_SCHEMA_NAMESPACE_URI = "http://www.w3.org/2001/XMLSchema";
 	
 	private String version;	
 	private Channel channel;
 	
 	public RSS(){
 		version = DEFAULT_VERSION;
-	}
-	
-
-	@Override
-	protected void Validate() {
-		Channel ch = getChannel();
-		if(ch == null){
-			String errMsg = "rss must have a channel element";
-			throw new SyndicationSyntaxException(errMsg);
-		}
-	}
-	
-	public Element toElement(){
-		Document doc = createEmptyDocument();
-		Element element = doc.createElement("rss");
-		
-		Validate();
-		
-		element.setAttribute("version", getVersion());
-		AugmentElement(element, "channel", getChannel());
-		
-		return element;
 	}
 		
 	public static Document toDocument(RSS rss) throws JAXBException, ParserConfigurationException{
@@ -68,6 +56,21 @@ public class RSS extends RSSElement {
 		
 		marshaller.marshal(rss, document);
 		return document;
+	}
+	
+	public static void validate(RSS rss) throws JAXBException, ParserConfigurationException, SAXException, IOException{
+		//Get XML and XSD document
+		Document document = toDocument(rss);
+		ClassLoader loader = RSS.class.getClassLoader();
+		File xsdFile = new File(loader.getResource("Rss2-0.xsd").getFile());
+		
+		//Turn XSD into validator
+		SchemaFactory sFactory = SchemaFactory.newInstance(W3C_XML_SCHEMA_NAMESPACE_URI);
+		Validator validator = sFactory.newSchema(new StreamSource(xsdFile)).newValidator();
+		
+		//Validate document with XSD
+		DOMSource docAdapter = new DOMSource(document);
+		validator.validate(docAdapter);
 	}
 	
 

@@ -6,10 +6,35 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
+@XmlType(propOrder={
+	"title",
+	"link",
+	"description",
+	"language",
+	"copyright",
+	"pubDate",
+	"lastBuildDate",
+	"category",
+	"generator",
+	"docs",
+	"cloud",
+	"ttl",
+	"image",
+	"textInput",
+	"skipHours",
+	"skipDays",
+	"managingEditor",
+	"webMaster",
+	"items"
+})
+@XmlAccessorType(XmlAccessType.PROPERTY)
 public class Channel {
 	//Mandatory Channel elements
 	private String title;
@@ -99,6 +124,7 @@ public class Channel {
 		this.description = description;
 	}
 
+	@XmlElement(name="item")
 	public List<Item> getItems() {
 		return items;
 	}

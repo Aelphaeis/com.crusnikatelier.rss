@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.crusnikatelier.rss.exceptions.SyndicationSyntaxException;
 import com.crusnikatelier.rss.pojos.Item;
 
 public class ItemTest {
@@ -15,7 +14,6 @@ public class ItemTest {
 		assertNotNull(i);
 	}
 	
-	@Test(expected=SyndicationSyntaxException.class)
 	public void toElementInvalidTitleFailureTest(){
 		Item i = new Item();
 		//i.toElement();

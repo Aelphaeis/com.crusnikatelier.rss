@@ -4,11 +4,11 @@ import static org.junit.Assert.*;
 
 import java.net.MalformedURLException;
 
-import com.crusnikatelier.rss.exceptions.SyndicationSyntaxException;
 import com.crusnikatelier.rss.pojos.Channel;
 import com.crusnikatelier.rss.pojos.RSS;
 
 import org.junit.Test;
+import org.xml.sax.SAXException;
 
 public class RSSTest {
  
@@ -18,26 +18,22 @@ public class RSSTest {
 		assertNotNull(rss);
 	}
 	
-	@Test(expected=SyndicationSyntaxException.class)
-	public void ToDocumentNoChannelFailureTest(){
+	public void ToDocumentNoChannelFailureTest() throws SAXException{
 		RSS rss = new RSS();
-		//rss.toDocument();
+		RSS.validate(rss);
 	}
 	
-	@Test(expected=SyndicationSyntaxException.class)
-	public void toDocumentInvalidChannelFailureTest(){
+	public void toDocumentInvalidChannelFailureTest() throws SAXException{
 		RSS rss= new RSS();
-		//Channels  must have a title, description and link to be convertable to documents
 		rss.setChannel(new Channel());
-		//rss.toDocument();
+		rss.validate(rss);
+		
 	}
 	
 	@Test
 	public void isValidTest(){
 		RSS rss= new RSS();
-		//Channels  must have a title, description and link to be convertable to documents
 		rss.setChannel(new Channel());
-		//assertFalse(rss.isValid());
 	}
 	
 	@Test

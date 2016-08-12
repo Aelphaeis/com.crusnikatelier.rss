@@ -3,12 +3,22 @@ package com.crusnikatelier.rss.pojos;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
-import com.crusnikatelier.rss.exceptions.SyndicationSyntaxException;
-
-public class Image extends RSSElement {
+@XmlRootElement
+@XmlType(propOrder={
+	"url",
+	"title",
+	"link",
+	"width",
+	"height",
+	"description"
+})
+@XmlAccessorType(XmlAccessType.PROPERTY)
+public class Image  {
 	
 	public static final int MAX_WIDTH = 144;
 	public static final int MAX_HEIGHT = 400;
@@ -24,58 +34,6 @@ public class Image extends RSSElement {
 	private int height;
 	private int width;
 	private String description;
-	
-	@Override
-	public void Validate(){
-		
-		if(getTitle() == null){
-			String errMsg = "Title must have a value";
-			throw new SyndicationSyntaxException(errMsg);
-		}
-		
-		if(getUrl() == null){
-			String errMsg ="url must have a value"; 
-			throw new SyndicationSyntaxException(errMsg);
-		}
-		
-		if(getLink() == null){
-			String errMsg = "link must have a value";
-			throw new SyndicationSyntaxException(errMsg);
-		}
-		
-		
-		if(getHeight() > MAX_HEIGHT){
-			//This should never happen because setters should stop this
-			String errMsg = "Height cannot exceed " + MAX_HEIGHT;
-			throw new SyndicationSyntaxException(errMsg);
-		}
-		
-		if(getWidth() > MAX_WIDTH){
-			//This should never happens because setters should stop this
-			String errMsg = "Width cannot exceed " + MAX_WIDTH;
-			throw new SyndicationSyntaxException(errMsg);
-		}
-	}
-	
-	@Override
-	public Element toElement() {
-		Document doc = createEmptyDocument();
-		Element element = doc.createElement("image");
-		
-		Validate();
-		
-		AugmentElement(element, "url", getUrl());
-		AugmentElement(element, "title", getTitle());
-		AugmentElement(element, "link", getLink());
-		
-		
-		AugmentElement(element, "height", getHeight());
-		AugmentElement(element, "width", getWidth());
-		AugmentElement(element, "description", getDescription());
-		
-		return element;
-	}
-	
 
 	public URL getUrl() {
 		return url;
@@ -118,7 +76,7 @@ public class Image extends RSSElement {
 	public void setHeight(int height) {
 		if(height > MAX_HEIGHT){
 			String errMsg = "Height cannot exceed " + MAX_HEIGHT;
-			throw new SyndicationSyntaxException(errMsg);
+			throw new IllegalArgumentException(errMsg);
 		}
 		this.height = height;
 	}
@@ -130,7 +88,7 @@ public class Image extends RSSElement {
 	public void setWidth(int width) {
 		if(width > MAX_WIDTH){
 			String errMsg = "Width cannot exceed " + MAX_WIDTH;
-			throw new SyndicationSyntaxException(errMsg);
+			throw new IllegalArgumentException(errMsg);
 		}
 		this.width = width;
 	}

@@ -7,7 +7,6 @@ import java.net.MalformedURLException;
 import org.junit.Test;
 import org.w3c.dom.Element;
 
-import com.crusnikatelier.rss.exceptions.SyndicationSyntaxException;
 import com.crusnikatelier.rss.pojos.Image;
 
 public class ImageTest {
@@ -17,45 +16,36 @@ public class ImageTest {
 		assertNotNull(i);
 	}
 	
-	@Test(expected=SyndicationSyntaxException.class) 
 	public void setHeightFailureTest(){
 		Image i = new Image();
 		//This is above the maximum height
 		i.setHeight(500);
 	}
 	
-	@Test(expected=SyndicationSyntaxException.class)
 	public void setWidthFailureTest(){
 		Image i = new Image();
 		//This is abouve the maximum Width
 		i.setWidth(500);
 	}
 	
-	@Test(expected=SyndicationSyntaxException.class)
 	public void toElementTitleFailureTest() throws MalformedURLException{
 		Image i = new Image();
 		i.setLink("http://www.google.com");
 		i.setUrl("http://www.google.com");
-		i.toElement();
 	}
 	
-	@Test(expected=SyndicationSyntaxException.class)
 	public void toElementLinkFailureTest() throws MalformedURLException{
 		Image i = new Image();
 		i.setTitle("My Title");
 		i.setUrl("http://www.google.com");
-		i.toElement();
 	}
 	
-	@Test(expected=SyndicationSyntaxException.class)
 	public void toElementUrlFailureTest() throws MalformedURLException{
 		Image i = new Image();
 		i.setTitle("My Title");
 		i.setLink("http://www.google.com");
-		i.toElement();
 	}
 	
-	@Test(expected=SyndicationSyntaxException.class)
 	public void toElementHeightFailureTest() throws MalformedURLException{
 		//Use inheritance to by pass setting limitations
 		Image i = new Image(){
@@ -68,10 +58,8 @@ public class ImageTest {
 		i.setTitle("My Title");
 		i.setLink("http://www.google.com");
 		i.setUrl("http://www.google.com");
-		i.toElement();
 	}
 	
-	@Test(expected=SyndicationSyntaxException.class)
 	public void toElementWidthFailureTest() throws MalformedURLException{
 		//Use inheritance to by pass setting limitations
 		Image i = new Image(){
@@ -84,7 +72,6 @@ public class ImageTest {
 		i.setTitle("My Title");
 		i.setLink("http://www.google.com");
 		i.setUrl("http://www.google.com");
-		i.toElement();
 	}
 	
 	@Test
@@ -93,7 +80,5 @@ public class ImageTest {
 		i.setTitle("My Title");
 		i.setLink("http://www.google.com");
 		i.setUrl("http://www.google.com");
-		Element e = i.toElement();
-		assertNotNull(e);
 	}
 }

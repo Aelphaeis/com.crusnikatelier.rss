@@ -19,16 +19,13 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-import com.crusnikatelier.rss.exceptions.SyndicationSyntaxException;
 
 @XmlRootElement(name="rss")
 public class RSS  {
@@ -36,7 +33,6 @@ public class RSS  {
 	public static final String ATOM_NAMESPACE = "http://www.w3.org/2005/Atom";
 	public static final String ATOM_PREFIX = "atom";
 	
-	private static final String RSS_2_0_SCHEMA_XSD_FILE = "src/main/resources/Rss2-0.xsd";
 	private static final String W3C_XML_SCHEMA_NAMESPACE_URI = "http://www.w3.org/2001/XMLSchema";
 	
 	private String version;	

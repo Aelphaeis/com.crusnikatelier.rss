@@ -95,7 +95,11 @@ public class RSS  {
 	public RSS(){
 		version = DEFAULT_VERSION;
 	}
-		
+	
+	public void validate() throws SAXException{
+		RSS.validate(this);
+	}
+	
 	@XmlAttribute(name="version")
 	public String getVersion() {
 		return version;

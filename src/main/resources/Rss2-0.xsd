@@ -38,6 +38,11 @@
 					<xs:documentation>The URL of the item.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="author" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Email address of the author of the item</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 	
 			<xs:element name="category" type="tCategory" minOccurs="0" >
 				<xs:annotation>

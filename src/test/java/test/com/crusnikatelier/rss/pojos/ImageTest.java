@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import java.net.MalformedURLException;
 
 import org.junit.Test;
-import org.w3c.dom.Element;
 
 import com.crusnikatelier.rss.pojos.Image;
 
@@ -24,7 +23,7 @@ public class ImageTest {
 	
 	public void setWidthFailureTest(){
 		Image i = new Image();
-		//This is abouve the maximum Width
+		//This is above the maximum Width
 		i.setWidth(500);
 	}
 	

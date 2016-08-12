@@ -4,74 +4,67 @@ import static org.junit.Assert.*;
 
 import java.net.MalformedURLException;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.xml.sax.SAXException;
 
 import com.crusnikatelier.rss.pojos.Channel;
-import com.crusnikatelier.rss.pojos.Image;
-import com.crusnikatelier.rss.pojos.Item;
+import com.crusnikatelier.rss.pojos.RSS;
 
 public class ChannelTest {
 
+	RSS rss;
+	
+	@Before
+	public void setup(){
+		rss = new RSS();
+	}
+	
 	@Test
 	public void ConstructorSuccessTest() {
 		Channel chan = new Channel();
 		assertNotNull(chan);
 	}
 	
-	public void toElementTitleFailureTest() throws MalformedURLException{
+	@Test(expected=SAXException.class)
+	public void validateTitleFailureTest() throws MalformedURLException, SAXException{
 		Channel chan = new Channel();
 		chan.setLink("http://www.google.com");
 		chan.setDescription("My Description");
-		//chan.toElement();
+		
+		rss.setChannel(chan);
+		rss.validate();
 	}
 	
 
-	public void toElementLinkFailureTest(){
+	@Test(expected=SAXException.class)
+	public void toElementLinkFailureTest() throws SAXException{
 		Channel chan = new Channel();
 		chan.setTitle("My Title");
 		chan.setDescription("My Description");
-		//chan.toElement();
+		
+		rss.setChannel(chan);
+		rss.validate();
 	}
 	
-	public void toElementDescFailureTest() throws MalformedURLException{
+	@Test(expected=SAXException.class)
+	public void toElementDescFailureTest() throws MalformedURLException, SAXException{
 		Channel chan = new Channel();
 		chan.setTitle("My Title");
 		chan.setLink("http://www.google.com");
-		//chan.toElement();
+		
+		rss.setChannel(chan);
+		rss.validate();
 	}
 	
-	public void toElementInvalidChildFailure() throws MalformedURLException{
-		Channel chan = new Channel();
-		Item i = new Item();
-		
-		chan.setTitle("My Title");
-		chan.setLink("http://www.google.com");
-		chan.setDescription("My Description");
-		chan.getItems().add(i);
-		
-		//chan.toElement();
-	}
-	
-	public void toElementInvalidImageFailure() throws MalformedURLException{
-		Channel chan = new Channel();
-		chan.setTitle("My Title");
-		chan.setLink("http://www.google.com");
-		//chan.toElement();
-		
-		chan.setImage(new Image());
-		//The title is missing
-		chan.getImage().setUrl("http://www.google.com");
-		chan.getImage().setLink("http://www.google.com");
-		
-		//chan.toElement();
-	}
-	
-	public void toElementSuccessTest() throws MalformedURLException{
+	@Test
+	public void toElementSuccessTest() throws MalformedURLException, SAXException{
 		Channel chan = new Channel();
 		chan.setTitle("My Title");
 		chan.setLink("http://www.google.com");
 		chan.setDescription("My Description");
-		//chan.toElement();
-		assertNotNull(chan);
+		
+		rss.setChannel(chan);
+		rss.validate();
 	}
 }

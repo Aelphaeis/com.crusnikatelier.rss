@@ -22,6 +22,12 @@ public class Playground {
 		i.setLink("http://www.google.com");
 		itemList.add(i);
 		
+		i = new Item();
+		i.setTitle("My Title");
+		i.setDescription("My Description");
+		i.setLink("http://www.google.com");
+		itemList.add(i);
+		
 		Channel chan = new Channel();
 		chan.setTitle("My Title");
 		chan.setLink("http://www.google.com");

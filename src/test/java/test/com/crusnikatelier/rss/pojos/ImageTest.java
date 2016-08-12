@@ -6,7 +6,7 @@ import java.net.MalformedURLException;
 
 import org.junit.Test;
 
-import com.crusnikatelier.rss.pojos.Image;
+import com.crusnikatelier.rss.Image;
 
 public class ImageTest {
 	@Test

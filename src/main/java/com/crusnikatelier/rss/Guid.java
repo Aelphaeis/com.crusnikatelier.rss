@@ -1,4 +1,4 @@
-package com.crusnikatelier.rss.pojos;
+package com.crusnikatelier.rss;
 
 import com.crusnikatelier.rss.exceptions.NotImplementedException;
 

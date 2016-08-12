@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.crusnikatelier.rss.pojos.Channel;
-import com.crusnikatelier.rss.pojos.Item;
-import com.crusnikatelier.rss.pojos.RSS;
+import com.crusnikatelier.rss.Channel;
+import com.crusnikatelier.rss.Item;
+import com.crusnikatelier.rss.RSS;
 
 public class Playground {
 

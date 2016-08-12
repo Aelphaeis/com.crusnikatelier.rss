@@ -8,8 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
-import com.crusnikatelier.rss.pojos.Channel;
-import com.crusnikatelier.rss.pojos.RSS;
+import com.crusnikatelier.rss.Channel;
+import com.crusnikatelier.rss.RSS;
 
 public class ChannelTest {
 

@@ -1,4 +1,4 @@
-package com.crusnikatelier.rss.pojos;
+package com.crusnikatelier.rss;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,6 +22,8 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
@@ -32,6 +34,9 @@ public class RSS  {
 	public static final String DEFAULT_VERSION = "2.0";
 	public static final String ATOM_NAMESPACE = "http://www.w3.org/2005/Atom";
 	public static final String ATOM_PREFIX = "atom";
+	
+	private static final String W3C_XML_SCHEMA_NAMESPACE_URI = "http://www.w3.org/2001/XMLSchema";
+	private static final Logger logger = LoggerFactory.getLogger(RSS.class);
 	
 	public static Document toDocument(RSS rss){
 		
@@ -76,18 +81,18 @@ public class RSS  {
 			docAdapter = new DOMSource(document);
 		}
 		catch (SAXException e) {
-			e.printStackTrace();
+			//Really should not occur
+			logger.error("Unable to parse XSD file", e);
 		}
 		try {
 			validator.validate(docAdapter);
 		} 
 		catch (IOException e) {
-			//Should not occur
-			e.printStackTrace();
+			//Really shouldn't occur
+			logger.error("Unable to read document", e);
 		}
 	}
 	
-	private static final String W3C_XML_SCHEMA_NAMESPACE_URI = "http://www.w3.org/2001/XMLSchema";
 	
 	private String version;	
 	private Channel channel;

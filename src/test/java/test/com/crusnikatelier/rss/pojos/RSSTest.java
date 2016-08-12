@@ -4,11 +4,11 @@ import static org.junit.Assert.*;
 
 import java.net.MalformedURLException;
 
-import com.crusnikatelier.rss.pojos.Channel;
-import com.crusnikatelier.rss.pojos.RSS;
-
 import org.junit.Test;
 import org.xml.sax.SAXException;
+
+import com.crusnikatelier.rss.Channel;
+import com.crusnikatelier.rss.RSS;
 
 public class RSSTest {
  

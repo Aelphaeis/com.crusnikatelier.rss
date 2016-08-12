@@ -1,13 +1,12 @@
-package com.crusnikatelier.rss.pojos;
+package com.crusnikatelier.rss;
 
 import com.crusnikatelier.rss.exceptions.NotImplementedException;
 
-public class Enclosure {
+public class Source {
 	private String url;
-	private String length;
-	private String type;
-
-	public Enclosure(){
+	private String source;
+	
+	public Source(){
 		throw new NotImplementedException();
 	}
 }

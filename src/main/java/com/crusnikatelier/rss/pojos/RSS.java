@@ -44,8 +44,6 @@ public class RSS extends RSSElement {
 			String errMsg = "rss must have a channel element";
 			throw new SyndicationSyntaxException(errMsg);
 		}
-		
-		ch.Validate();
 	}
 	
 	public Element toElement(){

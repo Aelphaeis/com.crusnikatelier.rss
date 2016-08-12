@@ -24,7 +24,7 @@ public class ChannelTest {
 		Channel chan = new Channel();
 		chan.setLink("http://www.google.com");
 		chan.setDescription("My Description");
-		chan.toElement();
+		//chan.toElement();
 	}
 	
 
@@ -33,7 +33,7 @@ public class ChannelTest {
 		Channel chan = new Channel();
 		chan.setTitle("My Title");
 		chan.setDescription("My Description");
-		chan.toElement();
+		//chan.toElement();
 	}
 	
 	@Test(expected=SyndicationSyntaxException.class)
@@ -41,7 +41,7 @@ public class ChannelTest {
 		Channel chan = new Channel();
 		chan.setTitle("My Title");
 		chan.setLink("http://www.google.com");
-		chan.toElement();
+		//chan.toElement();
 	}
 	
 	@Test(expected=SyndicationSyntaxException.class)
@@ -54,7 +54,7 @@ public class ChannelTest {
 		chan.setDescription("My Description");
 		chan.getItems().add(i);
 		
-		chan.toElement();
+		//chan.toElement();
 	}
 	
 	@Test(expected=SyndicationSyntaxException.class)
@@ -62,14 +62,14 @@ public class ChannelTest {
 		Channel chan = new Channel();
 		chan.setTitle("My Title");
 		chan.setLink("http://www.google.com");
-		chan.toElement();
+		//chan.toElement();
 		
 		chan.setImage(new Image());
 		//The title is missing
 		chan.getImage().setUrl("http://www.google.com");
 		chan.getImage().setLink("http://www.google.com");
 		
-		chan.toElement();
+		//chan.toElement();
 	}
 	
 	public void toElementSuccessTest() throws MalformedURLException{
@@ -77,7 +77,7 @@ public class ChannelTest {
 		chan.setTitle("My Title");
 		chan.setLink("http://www.google.com");
 		chan.setDescription("My Description");
-		chan.toElement();
+		//chan.toElement();
 		assertNotNull(chan);
 	}
 }

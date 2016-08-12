@@ -6,12 +6,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
-import com.crusnikatelier.rss.exceptions.SyndicationSyntaxException;
-
-public class Channel extends RSSElement {
+@XmlRootElement
+public class Channel {
 	//Mandatory Channel elements
 	private String title;
 	private URL link;
@@ -68,64 +67,7 @@ public class Channel extends RSSElement {
 		items = new ArrayList<Item>();
 	}
 
-	@Override
-	protected void Validate() {
-		if(getTitle() == null){
-			String errMsg = "Title must have a value";
-			throw new SyndicationSyntaxException(errMsg);
-		}
-		
-		if(getLink() == null){
-			String errMsg = "Link must have a value";
-			throw new SyndicationSyntaxException(errMsg);
-		}
-		
-		if(getDescription() == null){
-			String errMsg = "Description must have a value";
-			throw new SyndicationSyntaxException(errMsg);
-		}
-		
-		for(Item item : getItems() == null? new ArrayList<Item>() : getItems() )
-			item.Validate();
-
-		if(getImage() != null){
-			getImage().Validate();
-		}
-	}
-	
-	@Override
-	public Element toElement() {
-		Document doc = createEmptyDocument();
-		Element element = doc.createElement("channel");
-		
-		Validate();
-		
-		AugmentElement(element, "title", getTitle());
-		AugmentElement(element, "link", getLink());
-		AugmentElement(element, "description", getDescription());
-		
-		AugmentElement(element, "language", getLanguage());
-		AugmentElement(element, "copyright", getCopyright());
-		AugmentElement(element, "managingEditor", getManagingEditor());
-		AugmentElement(element, "webMaster", getWebMaster());
-		AugmentElement(element, "pubDate", getPubDate());
-		AugmentElement(element, "lastBuildDate", getLastBuildDate());
-		AugmentElement(element, "category", getCategory());
-		AugmentElement(element, "docs", getDocs());
-		AugmentElement(element, "generator", getGenerator());
-		AugmentElement(element, "cloud", getCloud());
-		AugmentElement(element, "ttl", getTtl());
-		AugmentElement(element, "image", getImage());
-		AugmentElement(element, "textInput", getTextInput());
-		AugmentElement(element, "skipHours", getSkipHours());
-		AugmentElement(element, "skipDays", getSkipDays());
-		
-		for(Item it :  getItems() == null? new ArrayList<Item>() : getItems() )
-			AugmentElement(element, "item", it);
-		
-		return element;
-	}
-
+	@XmlElement(name="title")
 	public String getTitle() {
 		return title;
 	}
@@ -134,9 +76,23 @@ public class Channel extends RSSElement {
 		this.title = title;
 	}
 
-
+	@XmlElement(name="description")
 	public String getDescription() {
 		return description;
+	}
+	
+	@XmlElement(name="link")
+	public URL getLink() {
+		return link;
+	}
+
+	public void setLink(URL link) {
+		this.link = link;
+	}
+	
+	public void setLink(String link) throws MalformedURLException{
+		//Exception throws because error is recoverable
+		this.link = new URL(link);
 	}
 
 	public void setDescription(String description) {
@@ -271,16 +227,5 @@ public class Channel extends RSSElement {
 		this.skipDays = skipDays;
 	}
 
-	public URL getLink() {
-		return link;
-	}
 
-	public void setLink(URL link) {
-		this.link = link;
-	}
-	
-	public void setLink(String link) throws MalformedURLException{
-		//Exception throws because error is recoverable
-		this.link = new URL(link);
-	}
 }

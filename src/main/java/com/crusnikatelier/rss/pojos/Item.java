@@ -2,11 +2,27 @@ package com.crusnikatelier.rss.pojos;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 
 @XmlRootElement
+@XmlType(propOrder={
+	"title",
+	"description",
+	"link",
+	"author",
+	"category",
+	"comments",
+	"enclosure",
+	"guid",
+	"pubDate",
+	"source"
+})
+@XmlAccessorType(XmlAccessType.PROPERTY)
 public class Item {
 	
 	//SemiMandatory

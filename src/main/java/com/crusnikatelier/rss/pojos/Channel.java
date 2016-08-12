@@ -91,6 +91,10 @@ public class Channel {
 	public Channel() {
 		items = new ArrayList<Item>();
 	}
+	
+	public void addItem(Item item){
+		getItems().add(item);
+	}
 
 	@XmlElement(name="title")
 	public String getTitle() {

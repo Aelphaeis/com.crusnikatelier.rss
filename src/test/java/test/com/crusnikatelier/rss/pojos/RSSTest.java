@@ -11,7 +11,7 @@ import com.crusnikatelier.rss.pojos.RSS;
 import org.junit.Test;
 
 public class RSSTest {
-
+ 
 	@Test
 	public void constructorSuccessTest() {
 		RSS rss = new RSS();

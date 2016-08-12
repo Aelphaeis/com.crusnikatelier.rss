@@ -5,6 +5,7 @@ import java.net.URL;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -34,7 +35,13 @@ public class Image  {
 	private int height;
 	private int width;
 	private String description;
+	
+	public Image(){
+		setHeight(DEFAULT_HEIGHT);
+		setWidth(DEFAULT_WIDTH);
+	}
 
+	@XmlElement
 	public URL getUrl() {
 		return url;
 	}
@@ -47,7 +54,8 @@ public class Image  {
 	public void setUrl(URL url)  {
 		this.url = url;
 	}
-
+	
+	@XmlElement
 	public String getTitle() {
 		return title;
 	}
@@ -56,6 +64,7 @@ public class Image  {
 		this.title = title;
 	}
 
+	@XmlElement
 	public URL getLink() {
 		return link;
 	}
@@ -69,6 +78,7 @@ public class Image  {
 		this.link = new URL(link);
 	}
 
+	@XmlElement
 	public int getHeight() {
 		return height;
 	}
@@ -81,6 +91,7 @@ public class Image  {
 		this.height = height;
 	}
 
+	@XmlElement
 	public int getWidth() {
 		return width;
 	}
@@ -93,6 +104,7 @@ public class Image  {
 		this.width = width;
 	}
 
+	@XmlElement
 	public String getDescription() {
 		return description;
 	}

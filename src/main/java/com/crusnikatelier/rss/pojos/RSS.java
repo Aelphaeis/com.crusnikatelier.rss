@@ -2,6 +2,12 @@ package com.crusnikatelier.rss.pojos;
 
 import java.io.StringWriter;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -17,10 +23,11 @@ import org.w3c.dom.Node;
 
 import com.crusnikatelier.rss.exceptions.SyndicationSyntaxException;
 
+@XmlRootElement(name="rss")
 public class RSS extends RSSElement {
-	public final String DEFAULT_VERSION = "2.0";
-	public final String ATOM_NAMESPACE = "http://www.w3.org/2005/Atom";
-	public final String ATOM_PREFIX = "atom";
+	public static final String DEFAULT_VERSION = "2.0";
+	public static final String ATOM_NAMESPACE = "http://www.w3.org/2005/Atom";
+	public static final String ATOM_PREFIX = "atom";
 	
 	private String version;	
 	private Channel channel;
@@ -52,33 +59,17 @@ public class RSS extends RSSElement {
 		
 		return element;
 	}
-	
-	/**
-	 * Used to convert this object into an RSS feed document
-	 * @return Representation of this object in XML 
-	 * @throws SyndicationSyntaxException If no channel is specified
-	 */
-	public Document toDocument() throws SyndicationSyntaxException {
-		try{
-			Validate();
-			
-			DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-			Document doc = docBuilder.newDocument();
-			
-			Element element = doc.createElement("rss");
-			
-			element.setAttribute("version", getVersion());
-			AugmentElement(element, "channel", getChannel());
-			
-			doc.appendChild(element);
-			
-			return doc;
-		}
-		catch(ParserConfigurationException pce){
-			//If this occurs this is is a non recoverable error
-			throw new RuntimeException(pce);
-		}
+		
+	public static Document toDocument(RSS rss) throws JAXBException, ParserConfigurationException{
+		JAXBContext context = JAXBContext.newInstance(rss.getClass());
+		Marshaller marshaller = context.createMarshaller();
+		
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder db = dbf.newDocumentBuilder();
+		Document document = db.newDocument();
+		
+		marshaller.marshal(rss, document);
+		return document;
 	}
 	
 
@@ -88,7 +79,7 @@ public class RSS extends RSSElement {
 			TransformerFactory transFactory = TransformerFactory.newInstance();
 			Transformer transformer = transFactory.newTransformer();
 			StringWriter buffer = new StringWriter();
-			Node n = toDocument();
+			Node n = toDocument(this);
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			
@@ -102,6 +93,7 @@ public class RSS extends RSSElement {
 		}
 	}
 
+	@XmlAttribute(name="version")
 	public String getVersion() {
 		return version;
 	}
@@ -110,6 +102,7 @@ public class RSS extends RSSElement {
 		this.version = version;
 	}
 
+	@XmlElement
 	public Channel getChannel() {
 		return channel;
 	}
@@ -117,4 +110,5 @@ public class RSS extends RSSElement {
 	public void setChannel(Channel channel) {
 		this.channel = channel;
 	}
+	
 }

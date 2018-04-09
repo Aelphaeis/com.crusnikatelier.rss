@@ -65,7 +65,7 @@ public class Channel extends RSSElement {
 	private Integer skipDays;
 	
 	public Channel() {
-		items = new ArrayList<Item>();
+		items = new ArrayList<>();
 	}
 
 	@Override

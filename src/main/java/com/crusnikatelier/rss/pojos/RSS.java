@@ -18,9 +18,9 @@ import org.w3c.dom.Node;
 import com.crusnikatelier.rss.exceptions.SyndicationSyntaxException;
 
 public class RSS extends RSSElement {
-	public final String DEFAULT_VERSION = "2.0";
-	public final String ATOM_NAMESPACE = "http://www.w3.org/2005/Atom";
-	public final String ATOM_PREFIX = "atom";
+	public static final String DEFAULT_VERSION = "2.0";
+	public static final String ATOM_NAMESPACE = "http://www.w3.org/2005/Atom";
+	public static final String ATOM_PREFIX = "atom";
 	
 	private String version;	
 	private Channel channel;
@@ -58,7 +58,7 @@ public class RSS extends RSSElement {
 	 * @return Representation of this object in XML 
 	 * @throws SyndicationSyntaxException If no channel is specified
 	 */
-	public Document toDocument() throws SyndicationSyntaxException {
+	public Document toDocument(){
 		try{
 			Validate();
 			
@@ -95,9 +95,8 @@ public class RSS extends RSSElement {
 			transformer.transform(new DOMSource(n), new StreamResult(buffer));
 			return buffer.toString();
 		}
-		catch(Throwable t){
+		catch(Exception t){
 			//We want to stop all exceptions
-			//throw new RuntimeException(t);
 			return super.toString();
 		}
 	}
